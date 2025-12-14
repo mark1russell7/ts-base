@@ -24,7 +24,8 @@ npx ts-base init my-package-name
 npx ts-base init my-lib                 # ESM (default)
 npx ts-base init my-app --config frontend  # Browser/React
 npx ts-base init my-tool -c cjs         # CommonJS
-npx ts-base init                        # Use folder name
+npx ts-base init                        # Use existing name or folder name
+npx ts-base init --overwrite            # Reset package.json to clean scaffold
 ```
 
 This will:

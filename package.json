@@ -6,24 +6,36 @@
   "license": "MIT",
   "author": "Mark Russell <marktheprogrammer17@gmail.com>",
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
-    "ts-base": "./bin/cli.js"
+    "ts-base": "./dist/cli.js"
   },
   "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
     "./tsconfig/*.json": "./tsconfig/*.json"
   },
   "files": [
-    "bin",
+    "dist",
     "tsconfig"
   ],
   "scripts": {
-    "prepare": "node -e \"\" "
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist .tsbuildinfo",
+    "prepublishOnly": "npm run build"
   },
   "sideEffects": false,
-  "devDependencies": {},
-  "dependencies": {},
-  "peerDependencies": {
-    "typescript": ">=5.0.0"
+  "devDependencies": {
+    "@types/node": "^25.0.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.34.0",
+    "deepmerge-ts": "^7.1.0"
   },
   "keywords": [
     "typescript",
@@ -43,6 +55,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=25.0.0",
+    "npm": ">=11.0.0"
   }
 }
