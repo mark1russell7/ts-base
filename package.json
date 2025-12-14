@@ -1,52 +1,48 @@
 {
   "$schema": "https://json.schemastore.org/package",
-  "name": "@mark1russell7/package-name",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Package description",
+  "name": "@mark1russell7/ts-base",
+  "version": "0.0.1",
+  "description": "TypeScript project configuration with hyper-strict tsconfig composition",
   "license": "MIT",
   "author": "Mark Russell <marktheprogrammer17@gmail.com>",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "bin": {
+    "ts-base": "./bin/cli.js"
+  },
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
+    "./tsconfig/*.json": "./tsconfig/*.json"
   },
   "files": [
-    "dist",
-    "src"
+    "bin",
+    "tsconfig"
   ],
   "scripts": {
-    "build": "tsc -b",
-    "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist .tsbuildinfo",
-    "init": "node scripts/init.js",
-    "set-name": "node scripts/set-name.js",
-    "set-tsconfig": "node scripts/set-tsconfig.js"
+    "prepare": "node -e \"\" "
   },
   "sideEffects": false,
-  "devDependencies": {
-    "typescript": "^5.9.3"
-  },
+  "devDependencies": {},
   "dependencies": {},
-  "peerDependencies": {},
-  "keywords": [],
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "keywords": [
+    "typescript",
+    "tsconfig",
+    "configuration",
+    "strict"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mark1russell7/package-name.git"
+    "url": "https://github.com/mark1russell7/ts-base.git"
   },
   "bugs": {
-    "url": "https://github.com/mark1russell7/package-name/issues"
+    "url": "https://github.com/mark1russell7/ts-base/issues"
   },
-  "homepage": "https://github.com/mark1russell7/package-name#readme",
+  "homepage": "https://github.com/mark1russell7/ts-base#readme",
   "publishConfig": {
     "access": "public"
   },
   "engines": {
-    "node": ">=25.0.0",
-    "npm": ">=11.0.0"
+    "node": ">=20.0.0"
   }
 }

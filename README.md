@@ -1,47 +1,64 @@
 # ts-base
 
-TypeScript template with hyper-strict tsconfig composition.
+TypeScript project configuration with hyper-strict tsconfig composition.
 
-## Starting a new project
+## Installation
 
 ```bash
-# Clone ts-base to a new folder name
-git clone ~/git/ts-base ~/git/my-new-lib
-
-# Initialize with your package name
-cd ~/git/my-new-lib
-npm run init my-new-lib                    # defaults to ESM
-npm run init my-new-lib --config frontend  # for browser/React
-npm run init my-new-lib -c cjs             # for CommonJS
-
-# Then
-npm install
+npm install --save-dev @mark1russell7/ts-base
+npx ts-base init
 ```
 
-## Scripts
+## Usage
 
-| Script | Usage |
-|--------|-------|
-| `npm run init <name> [-c esm\|cjs\|frontend]` | Full setup: sets name, tsconfig, reinits git |
-| `npm run set-name <name>` | Just update package name + URLs |
-| `npm run set-tsconfig <esm\|cjs\|frontend> [path]` | Just change tsconfig |
+### Initialize a new project
 
-## What `init` does
+```bash
+npx ts-base init                    # ESM (default)
+npx ts-base init --config frontend  # Browser/React
+npx ts-base init -c cjs             # CommonJS
+```
 
-1. Sets `name` to `@mark1russell7/<name>`
-2. Updates `repository`, `bugs`, `homepage` URLs
-3. Sets root tsconfig.json to chosen config
-4. Deletes `.git` and runs `git init` fresh
+This will:
+1. Create/update `tsconfig.json` to extend from ts-base
+2. Add `build`, `typecheck`, `clean` scripts to package.json
+3. Add `typescript` as a devDependency
+
+### Change tsconfig type
+
+```bash
+npx ts-base set-tsconfig frontend
+```
+
+## Config types
+
+| Type | Use case |
+|------|----------|
+| `esm` | Node.js ESM packages (default) |
+| `cjs` | Node.js CommonJS packages |
+| `frontend` | Browser/React apps with bundler |
 
 ## tsconfig composition
 
 ```
 tsconfig/
-├── shared.json          # Hyper-strict base
-├── esm.json             # nodenext module/resolution
-├── commonjs.json        # commonjs module, node resolution
-├── lib.json             # ${configDir} output paths
+├── shared.json          # Hyper-strict base settings
+├── esm.json             # ESM: nodenext module/resolution
+├── commonjs.json        # CJS: commonjs module, node resolution
+├── lib.json             # Output paths using ${configDir}
 ├── esm.lib.json         # ESM + lib combined
 ├── commonjs.lib.json    # CJS + lib combined
 └── frontend.json        # DOM/JSX/bundler for browser
 ```
+
+## Manual setup
+
+If you prefer not to use the CLI, just create a `tsconfig.json`:
+
+```json
+{
+  "extends": "@mark1russell7/ts-base/tsconfig/esm.lib.json"
+}
+```
+
+The `${configDir}` paths in the base configs resolve to your project root, so `src/`, `dist/`, etc. will be in your project, not in node_modules.
