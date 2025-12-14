@@ -6,14 +6,14 @@ TypeScript project configuration with hyper-strict tsconfig composition.
 
 ```bash
 npm install --save-dev github:mark1russell7/ts-base#main
-npx ts-base init
+npx ts-base init my-package-name
 ```
 
 Or if published to npm:
 
 ```bash
 npm install --save-dev @mark1russell7/ts-base
-npx ts-base init
+npx ts-base init my-package-name
 ```
 
 ## Usage
@@ -21,15 +21,21 @@ npx ts-base init
 ### Initialize a new project
 
 ```bash
-npx ts-base init                    # ESM (default)
-npx ts-base init --config frontend  # Browser/React
-npx ts-base init -c cjs             # CommonJS
+npx ts-base init my-lib                 # ESM (default)
+npx ts-base init my-app --config frontend  # Browser/React
+npx ts-base init my-tool -c cjs         # CommonJS
+npx ts-base init                        # Use folder name
 ```
 
 This will:
 1. Create/update `tsconfig.json` to extend from ts-base
-2. Add `build`, `typecheck`, `clean` scripts to package.json
-3. Add `typescript` as a devDependency
+2. Set up `package.json` with:
+   - `name`: `@mark1russell7/<name>`
+   - `type`: `"module"`, `main`, `types`, `exports`
+   - `build`, `typecheck`, `clean` scripts
+   - `repository`, `bugs`, `homepage` URLs
+   - `typescript` and `@mark1russell7/ts-base` as devDependencies
+3. Create `src/index.ts` if missing
 
 ### Change tsconfig type
 
@@ -60,7 +66,7 @@ tsconfig/
 
 ## Manual setup
 
-If you prefer not to use the CLI, just create a `tsconfig.json`:
+If you prefer not to use the CLI, create a `tsconfig.json`:
 
 ```json
 {
