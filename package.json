@@ -26,16 +26,16 @@
     "build": "tsc -b",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist .tsbuildinfo",
-    "prepublishOnly": "npm run build"
+    "prepare": "npm run build"
   },
   "sideEffects": false,
   "devDependencies": {
-    "@types/node": "^25.0.2",
-    "typescript": "^5.9.3"
+    "@types/node": "^25.0.2"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.34.0",
-    "deepmerge-ts": "^7.1.0"
+    "deepmerge-ts": "^7.1.0",
+    "typescript": "^5.9.3"
   },
   "keywords": [
     "typescript",
