@@ -5,6 +5,13 @@ TypeScript project configuration with hyper-strict tsconfig composition.
 ## Installation
 
 ```bash
+npm install --save-dev github:mark1russell7/ts-base#main
+npx ts-base init
+```
+
+Or if published to npm:
+
+```bash
 npm install --save-dev @mark1russell7/ts-base
 npx ts-base init
 ```
