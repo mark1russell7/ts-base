@@ -1,11 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/package",
-  "name": "@your-org/package-name",
+  "name": "@mark1russell7/package-name",
   "version": "0.0.0",
   "private": true,
   "description": "Package description",
   "license": "MIT",
-  "author": "Your Name <your.email@example.com>",
+  "author": "Mark Russell <marktheprogrammer17@gmail.com>",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -22,7 +22,10 @@
   "scripts": {
     "build": "tsc -b",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist .tsbuildinfo"
+    "clean": "rm -rf dist .tsbuildinfo",
+    "init": "node scripts/init.js",
+    "set-name": "node scripts/set-name.js",
+    "set-tsconfig": "node scripts/set-tsconfig.js"
   },
   "sideEffects": false,
   "devDependencies": {
@@ -33,12 +36,12 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/package-name.git"
+    "url": "https://github.com/mark1russell7/package-name.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/package-name/issues"
+    "url": "https://github.com/mark1russell7/package-name/issues"
   },
-  "homepage": "https://github.com/your-org/package-name#readme",
+  "homepage": "https://github.com/mark1russell7/package-name#readme",
   "publishConfig": {
     "access": "public"
   },
