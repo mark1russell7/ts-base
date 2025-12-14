@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "@your-org/package-name",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Package description",
+  "license": "MIT",
+  "author": "Your Name <your.email@example.com>",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist .tsbuildinfo"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/package-name.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/package-name/issues"
+  },
+  "homepage": "https://github.com/your-org/package-name#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=25.0.0",
+    "npm": ">=11.0.0"
+  }
+}
