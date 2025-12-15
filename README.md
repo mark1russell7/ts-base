@@ -6,14 +6,14 @@ TypeScript project configuration with hyper-strict tsconfig composition.
 
 ```bash
 npm install --save-dev github:mark1russell7/ts-base#main
-npx ts-base init my-package-name
+npx @mark1russell7/ts-base init my-package-name
 ```
 
 Or if published to npm:
 
 ```bash
 npm install --save-dev @mark1russell7/ts-base
-npx ts-base init my-package-name
+npx @mark1russell7/ts-base init my-package-name
 ```
 
 ## Usage
@@ -21,11 +21,11 @@ npx ts-base init my-package-name
 ### Initialize a new project
 
 ```bash
-npx ts-base init my-lib                 # ESM (default)
-npx ts-base init my-app --config frontend  # Browser/React
-npx ts-base init my-tool -c cjs         # CommonJS
-npx ts-base init                        # Use existing name or folder name
-npx ts-base init --overwrite            # Reset package.json to clean scaffold
+npx @mark1russell7/ts-base init my-lib                 # ESM (default)
+npx @mark1russell7/ts-base init my-app --config frontend  # Browser/React
+npx @mark1russell7/ts-base init my-tool -c cjs         # CommonJS
+npx @mark1russell7/ts-base init                        # Use existing name or folder name
+npx @mark1russell7/ts-base init --overwrite            # Reset package.json to clean scaffold
 ```
 
 This will:
@@ -41,7 +41,7 @@ This will:
 ### Change tsconfig type
 
 ```bash
-npx ts-base set-tsconfig frontend
+npx @mark1russell7/ts-base set-tsconfig frontend
 ```
 
 ## Config types
