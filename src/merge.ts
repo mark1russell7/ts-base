@@ -1,4 +1,4 @@
-import { deepmerge } from 'deepmerge-ts';
+import { deepmergeCustom } from 'deepmerge-ts';
 
 export interface MergeOptions {
   /**
@@ -7,6 +7,11 @@ export interface MergeOptions {
    */
   overwrite?: boolean;
 }
+
+// Custom deepmerge that replaces arrays instead of concatenating
+const customMerge = deepmergeCustom({
+  mergeArrays: false, // Replace arrays instead of concatenating
+});
 
 /**
  * Merge an existing object with a template.
@@ -26,8 +31,8 @@ export function merge<T extends object>(
     return { ...template };
   }
 
-  // Merge mode: deepmerge with existing taking precedence
+  // Merge mode: customMerge with existing taking precedence
   // deepmerge-ts merges left-to-right, later values override earlier
   // So we put template first (base) and existing second (overrides)
-  return deepmerge(template, existing) as T;
+  return customMerge(template, existing) as T;
 }
