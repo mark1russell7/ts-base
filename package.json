@@ -27,10 +27,14 @@
     "build": "tsc -b",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist .tsbuildinfo",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "check:conventions": "conventions check",
+    "check:api": "api-report check"
   },
   "sideEffects": false,
   "devDependencies": {
+    "@mark1russell7/api-report": "^0.1.0",
+    "@mark1russell7/conventions": "^0.1.0",
     "@types/node": "^25.0.2"
   },
   "dependencies": {
@@ -58,5 +62,15 @@
   "engines": {
     "node": ">=25.0.0",
     "npm": ">=11.0.0"
+  },
+  "conventions": {
+    "rules": {
+      "required-scripts": {
+        "scripts": [
+          "typecheck"
+        ],
+        "reason": "ts-base never adopted the STE prose standard (ste-lint): its README is not STE, and no rule document of this repository asks for it. The rule still examines typecheck."
+      }
+    }
   }
 }

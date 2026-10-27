@@ -1,0 +1,120 @@
+# The public API of @mark1russell7/ts-base
+#
+# The names of each entry of the exports field, and the declaration of each name, without comments
+# and private members. The command `api-report check` compares this file with the built .d.ts files.
+# To accept a change of the API, start the build, then `api-report update`, and review the diff.
+
+## . (dist/index.d.ts): 12 names
+
+type ConfigType: dist/templates.d.ts#ConfigType
+type MergeOptions: dist/merge.d.ts#MergeOptions
+type PackageJson: dist/schema.d.ts#PackageJson
+PackageJsonSchema: dist/schema.d.ts#PackageJsonSchema
+type Tsconfig: dist/schema.d.ts#Tsconfig
+TsconfigSchema: dist/schema.d.ts#TsconfigSchema
+createPackageTemplate: dist/templates.d.ts#createPackageTemplate
+createTsconfigTemplate: dist/templates.d.ts#createTsconfigTemplate
+getErrors: dist/schema.d.ts#getErrors
+merge: dist/merge.d.ts#merge
+tsconfigConfigs: dist/templates.d.ts#tsconfigConfigs
+validate: dist/schema.d.ts#validate
+
+## ./tsconfig/*.json: no declaration pattern for ./tsconfig/*.json
+
+## bin: 1 commands
+
+ts-base: ./dist/cli.js
+
+## Declarations
+
+### dist/merge.d.ts#MergeOptions
+export interface MergeOptions {
+    overwrite?: boolean;
+}
+
+### dist/merge.d.ts#merge
+export declare function merge<T extends object>(existing: Partial<T>, template: T, options?: MergeOptions): T;
+
+### dist/schema.d.ts#PackageJson
+export type PackageJson = Static<typeof PackageJsonSchema>;
+
+### dist/schema.d.ts#PackageJsonSchema
+export declare const PackageJsonSchema: import("@sinclair/typebox").TObject<{
+    $schema: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+    name: import("@sinclair/typebox").TString;
+    version: import("@sinclair/typebox").TString;
+    description: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+    license: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+    author: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TObject<{
+        name: import("@sinclair/typebox").TString;
+        email: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+        url: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+    }>]>>;
+    type: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TLiteral<"module">, import("@sinclair/typebox").TLiteral<"commonjs">]>;
+    main: import("@sinclair/typebox").TString;
+    types: import("@sinclair/typebox").TString;
+    exports: import("@sinclair/typebox").TRecord<import("@sinclair/typebox").TString, import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TString, import("@sinclair/typebox").TObject<{
+        types: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+        import: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+        require: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+        default: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+    }>]>>;
+    files: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TString>;
+    scripts: import("@sinclair/typebox").TRecord<import("@sinclair/typebox").TString, import("@sinclair/typebox").TString>;
+    sideEffects: import("@sinclair/typebox").TBoolean;
+    devDependencies: import("@sinclair/typebox").TRecord<import("@sinclair/typebox").TString, import("@sinclair/typebox").TString>;
+    dependencies: import("@sinclair/typebox").TRecord<import("@sinclair/typebox").TString, import("@sinclair/typebox").TString>;
+    peerDependencies: import("@sinclair/typebox").TRecord<import("@sinclair/typebox").TString, import("@sinclair/typebox").TString>;
+    keywords: import("@sinclair/typebox").TArray<import("@sinclair/typebox").TString>;
+    repository: import("@sinclair/typebox").TObject<{
+        type: import("@sinclair/typebox").TString;
+        url: import("@sinclair/typebox").TString;
+    }>;
+    bugs: import("@sinclair/typebox").TObject<{
+        url: import("@sinclair/typebox").TString;
+    }>;
+    homepage: import("@sinclair/typebox").TString;
+    publishConfig: import("@sinclair/typebox").TObject<{
+        access: import("@sinclair/typebox").TUnion<[import("@sinclair/typebox").TLiteral<"public">, import("@sinclair/typebox").TLiteral<"restricted">]>;
+    }>;
+    engines: import("@sinclair/typebox").TObject<{
+        node: import("@sinclair/typebox").TString;
+        npm: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+    }>;
+}>;
+
+### dist/schema.d.ts#Tsconfig
+export type Tsconfig = Static<typeof TsconfigSchema>;
+
+### dist/schema.d.ts#TsconfigSchema
+export declare const TsconfigSchema: import("@sinclair/typebox").TObject<{
+    $schema: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TString>;
+    extends: import("@sinclair/typebox").TString;
+    compilerOptions: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TRecord<import("@sinclair/typebox").TString, import("@sinclair/typebox").TUnknown>>;
+    include: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TArray<import("@sinclair/typebox").TString>>;
+    exclude: import("@sinclair/typebox").TOptional<import("@sinclair/typebox").TArray<import("@sinclair/typebox").TString>>;
+}>;
+
+### dist/schema.d.ts#getErrors
+export declare function getErrors(schema: ReturnType<typeof Type.Object>, value: unknown): string[];
+
+### dist/schema.d.ts#validate
+export declare function validate<T>(schema: ReturnType<typeof Type.Object>, value: unknown): value is T;
+
+### dist/templates.d.ts#ConfigType
+export type ConfigType = keyof typeof tsconfigConfigs;
+
+### dist/templates.d.ts#createPackageTemplate
+export declare function createPackageTemplate(name: string, shortName: string): PackageJson;
+
+### dist/templates.d.ts#createTsconfigTemplate
+export declare function createTsconfigTemplate(config: ConfigType): Tsconfig;
+
+### dist/templates.d.ts#tsconfigConfigs
+export declare const tsconfigConfigs: {
+    readonly esm: "@mark1russell7/ts-base/tsconfig/esm.lib.json";
+    readonly cjs: "@mark1russell7/ts-base/tsconfig/commonjs.lib.json";
+    readonly commonjs: "@mark1russell7/ts-base/tsconfig/commonjs.lib.json";
+    readonly frontend: "@mark1russell7/ts-base/tsconfig/frontend.json";
+    readonly browser: "@mark1russell7/ts-base/tsconfig/frontend.json";
+};
