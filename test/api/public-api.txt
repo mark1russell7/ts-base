@@ -21,6 +21,14 @@ validate: dist/schema.d.ts#validate
 
 ## ./tsconfig/*.json: no declaration pattern for ./tsconfig/*.json
 
+file ./tsconfig/commonjs.json: tsconfig/commonjs.json
+file ./tsconfig/commonjs.lib.json: tsconfig/commonjs.lib.json
+file ./tsconfig/esm.json: tsconfig/esm.json
+file ./tsconfig/esm.lib.json: tsconfig/esm.lib.json
+file ./tsconfig/frontend.json: tsconfig/frontend.json
+file ./tsconfig/lib.json: tsconfig/lib.json
+file ./tsconfig/shared.json: tsconfig/shared.json
+
 ## bin: 1 commands
 
 ts-base: ./dist/cli.js
