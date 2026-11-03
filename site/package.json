@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "@ts-base/site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "The GitHub Pages site of ts-base: trace each setting of a merged tsconfig to its file, and switch strict flags against real tsc results.",
+  "scripts": {
+    "table": "node scripts/tsc-table.ts",
+    "dev": "pnpm run table && vite",
+    "build": "pnpm run table && vite build",
+    "preview": "vite preview",
+    "test": "pnpm run table && vitest run",
+    "typecheck": "pnpm run table && tsc -p tsconfig.json && tsc -p tsconfig.test.json"
+  },
+  "dependencies": {
+    "@mark1russell7/site-pages": "^0.1.10",
+    "@mark1russell7/ts-base": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.2",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.3"
+  }
+}

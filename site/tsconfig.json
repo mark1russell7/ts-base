@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../tsconfig/frontend.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "composite": false,
+    "incremental": false,
+    "tsBuildInfoFile": null,
+    "isolatedDeclarations": false,
+    "declaration": false,
+    "declarationMap": false,
+    "diagnostics": false,
+    "types": [
+      "vite/client",
+      "node"
+    ]
+  }
+}

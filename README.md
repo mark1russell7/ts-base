@@ -2,6 +2,8 @@
 
 TypeScript project configuration with hyper-strict tsconfig composition.
 
+The [site](https://mark1russell7.github.io/ts-base/) traces each setting of a merged tsconfig to its file. It also shows which code each strict flag refuses, with real tsc results.
+
 ## Installation
 
 ```bash
