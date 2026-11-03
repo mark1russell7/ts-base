@@ -53,7 +53,9 @@ describe("the trace", () => {
       const file = layersFor(config).find((layer) => layer.file === row.source);
       const own = row.option === "include" || row.option === "exclude" ? file?.raw[row.option] : file?.raw.compilerOptions?.[row.option];
       // tsc prints the path of the project for ${configDir}, and it writes a value of an option in lower case.
-      const normal = (value: unknown): string => JSON.stringify(value).replaceAll("${configDir}", ".").toLowerCase();
+      // tsc also prints `node10` for its alias `node`.
+      const normal = (value: unknown): string =>
+        JSON.stringify(value).replaceAll("${configDir}", ".").toLowerCase().replace(/^"node"$/, '"node10"');
       expect(normal(row.value)).toBe(normal(own));
     }
   });
