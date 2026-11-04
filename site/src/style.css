@@ -668,6 +668,23 @@ label code.flag-name {
 
 /* On a narrow screen the sample stays above the flags, so a click shows its result. */
 @media (max-width: 59.99rem) {
+  /* On a small screen a long line reaches the corner of the block, so the button gets its own row above the code. */
+  .codeblock {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .codeblock pre {
+    padding-right: 12px;
+  }
+
+  .codeblock .copy {
+    position: static;
+    order: -1;
+    align-self: flex-end;
+    margin-bottom: 0.35rem;
+  }
+
   .view {
     display: contents;
   }
