@@ -35,7 +35,7 @@
   "sideEffects": false,
   "devDependencies": {
     "@mark1russell7/api-report": "^0.2.0",
-    "@mark1russell7/conventions": "^0.14.0",
+    "@mark1russell7/conventions": "^0.25.0",
     "@types/node": "^25.0.2"
   },
   "dependencies": {
