@@ -25,7 +25,8 @@
   ],
   "scripts": {
     "build": "tsc -b",
-    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json && pnpm --filter @ts-base/site run typecheck",
+    "test": "pnpm --filter @ts-base/site run test",
     "clean": "rm -rf dist .tsbuildinfo",
     "prepare": "npm run build",
     "check:conventions": "conventions check",
@@ -66,8 +67,8 @@
   "conventions": {
     "rules": {
       "cue-preset": {
-        "prefix": "./tsconfig/",
-        "reason": "ts-base publishes its own set of tsconfig presets (./tsconfig/*.json), apart from @mark1russell7/cue. Its tsconfig.json extends its own preset esm.lib.json, so each build tests a preset that it publishes. A cue preset here would test the wrong presets. The check of the strict options still runs against the preset that it extends."
+        "prefix": "../tsconfig/",
+        "reason": "ts-base publishes its own set of tsconfig presets (./tsconfig/*.json), apart from @mark1russell7/cue. The site package extends the preset frontend.json of this repository, so each build of the site tests a preset that the repository publishes. A cue preset here would test the wrong presets. The check of the strict options still runs against the preset that it extends."
       }
     }
   }

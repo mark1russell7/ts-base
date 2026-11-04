@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ts-base: strict tsconfig presets, traced setting by setting</title>
+    <meta name="description" content="Pick a config of ts-base, and trace each setting of the merged tsconfig to its file. Switch a strict flag, and see the code that tsc refuses." />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2317192a'/%3E%3Crect x='6' y='8' width='20' height='4' rx='2' fill='%2336c28f'/%3E%3Crect x='6' y='14' width='14' height='4' rx='2' fill='%2393abff'/%3E%3Crect x='6' y='20' width='9' height='4' rx='2' fill='%23e8b04a'/%3E%3C/svg%3E" />
+    <script>
+      // The saved theme applies before the first paint, so a dark page does not flash white.
+      try {
+        const t = localStorage.getItem("ts-base-theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#try">Skip to the configs</a>
+    <header class="top">
+      <div class="brand">
+        <h1 class="wordmark"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>ts-base</h1>
+        <p class="lead">Strict tsconfig presets that build on each other. Pick a config, trace each setting to its file, then switch a flag and see the code that tsc refuses.</p>
+      </div>
+      <nav class="links" aria-label="Site">
+        <a href="#try">Trace</a>
+        <a href="#lab">Flags</a>
+        <a href="#init">Init</a>
+        <a href="#how">How it works</a>
+        <a href="releases/">Releases</a>
+        <a href="status/">Status</a>
+        <a href="https://github.com/mark1russell7/ts-base">GitHub</a>
+        <button type="button" class="theme" id="theme" aria-label="Color theme">Theme: auto</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="try" class="core" aria-labelledby="try-title">
+        <h2 id="try-title" class="sr">The chain and the merged config</h2>
+        <div class="card setup">
+          <span class="label" id="configs-label">Config <code>--config</code></span>
+          <div class="chips" id="configs" role="group" aria-labelledby="configs-label"></div>
+          <p class="hint" id="config-note"></p>
+          <div class="codeblock">
+            <pre class="scroll-cue"><code id="command"></code></pre>
+            <button type="button" class="copy" id="copy-command">Copy</button>
+          </div>
+        </div>
+
+        <div class="trace">
+          <div class="card chain-card">
+            <span class="label" id="chain-label">Chain of files</span>
+            <ol class="chain" id="chain" aria-labelledby="chain-label"></ol>
+            <p class="hint">tsc applies the files from top to bottom, and a later file wins. Select a file to see only its settings.</p>
+            <div id="raw-box" hidden>
+              <span class="label raw-label"><code id="raw-title"></code></span>
+              <div class="codeblock">
+                <pre class="scroll-cue raw" tabindex="0"><code id="raw"></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="card table-card merged-card">
+            <div class="merged-head">
+              <span class="label">Merged config <code>tsc --showConfig</code></span>
+              <span class="hint" id="row-count"></span>
+              <label class="sr" for="filter">Filter the options</label>
+              <input id="filter" class="mono" type="text" placeholder="Filter the options" spellcheck="false" autocomplete="off" autocapitalize="off" />
+            </div>
+            <div class="table-scroll merged-scroll" tabindex="0">
+              <table class="merged-table">
+                <thead>
+                  <tr><th scope="col">Option</th><th scope="col">Value</th><th scope="col">Set by</th></tr>
+                </thead>
+                <tbody id="rows"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="lab" class="section" aria-labelledby="lab-title">
+        <div class="section-head">
+          <h2 id="lab-title">Flags against code</h2>
+          <p class="hint">Switch a flag to see which code it refuses. Each result is a real run of the TypeScript <span id="tsc-version"></span> compiler on this sample, made at build time with the preset of your config. The page shows the errors of all compiler phases together.</p>
+        </div>
+        <div class="lab">
+          <div class="card toggles">
+            <div class="flag-actions">
+              <button type="button" id="flags-preset">Preset</button>
+              <button type="button" id="flags-on">All on</button>
+              <button type="button" id="flags-off">All off</button>
+            </div>
+            <ul class="flags" id="flags"></ul>
+          </div>
+          <div class="view">
+            <div class="card view-card">
+              <p class="verdict" id="verdict" role="status" aria-live="polite"></p>
+              <div id="option-errors"></div>
+              <div class="sample-scroll" id="sample-scroll" tabindex="0" aria-label="The code sample">
+                <pre id="sample"></pre>
+              </div>
+            </div>
+            <div class="card">
+              <span class="label">These flags in your project</span>
+              <div class="codeblock">
+                <pre class="scroll-cue"><code id="tsc-command"></code></pre>
+                <button type="button" class="copy" data-copy="tsc-command">Copy</button>
+              </div>
+              <p class="hint" id="tsc-note"></p>
+            </div>
+            <div class="card">
+              <span class="label">Refusals <span class="hint" id="refusals-count"></span></span>
+              <ol class="refusals" id="refusals"></ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="init" class="section" aria-labelledby="init-title">
+        <div class="section-head">
+          <h2 id="init-title">What init writes</h2>
+          <p class="hint">This panel calls the real <code>createPackageTemplate</code>, <code>merge</code> and <code>validate</code> of the package in your browser. It writes no file.</p>
+        </div>
+        <div class="init">
+          <div class="card init-in">
+            <label class="label" for="name">Package name</label>
+            <input id="name" class="mono" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" />
+            <label class="toggle"><input type="checkbox" id="overwrite" /> <code>--overwrite</code>: the template replaces the existing file</label>
+            <label class="label" for="existing">Existing package.json</label>
+            <textarea id="existing" class="mono" rows="9" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Empty: this project has no package.json"></textarea>
+            <p class="hint bad" id="existing-error" aria-live="polite"></p>
+            <button type="button" id="existing-example">Use an example file</button>
+          </div>
+          <div class="card init-out">
+            <div class="seg" id="init-tabs" role="tablist" aria-label="Files"></div>
+            <div class="codeblock">
+              <pre class="scroll-cue init-pre" tabindex="0"><code id="init-file"></code></pre>
+              <button type="button" class="copy" id="copy-init">Copy</button>
+            </div>
+            <ul class="problems" id="init-problems" role="status" aria-live="polite"></ul>
+            <p class="hint" id="init-match"></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" class="section" aria-labelledby="how-title">
+        <div class="section-head">
+          <h2 id="how-title">How it works</h2>
+        </div>
+        <ol class="how">
+          <li class="card"><span class="step">1</span><h3>One file has the rules</h3><p><code>shared.json</code> has the strict flags. Each other preset gets them through <code>extends</code>.</p></li>
+          <li class="card"><span class="step">2</span><h3>Small files add one concern</h3><p><code>esm.json</code> and <code>commonjs.json</code> set the module system. <code>lib.json</code> sets the paths.</p></li>
+          <li class="card"><span class="step">3</span><h3>Your project extends one preset</h3><p><code>init</code> writes a <code>tsconfig.json</code> with one <code>extends</code> line. Paths with <code>${configDir}</code> resolve from your project.</p></li>
+          <li class="card"><span class="step">4</span><h3>This page reads the real files</h3><p>The build reads <code>tsconfig/</code>, starts the real CLI and starts <code>tsc</code>. The page shows that record and types none of it by hand.</p></li>
+        </ol>
+      </section>
+
+      <section id="install" class="section" aria-labelledby="install-title">
+        <div class="section-head">
+          <h2 id="install-title">Install</h2>
+        </div>
+        <div class="card install">
+          <div class="codeblock">
+            <pre class="scroll-cue"><code id="install-cmd">npm install --save-dev @mark1russell7/ts-base
+npx @mark1russell7/ts-base init my-lib</code></pre>
+            <button type="button" class="copy" data-copy="install-cmd">Copy</button>
+          </div>
+          <div class="codeblock">
+            <pre class="scroll-cue"><code id="switch-cmd"># Change the config of an existing project.
+npx @mark1russell7/ts-base set-tsconfig frontend</code></pre>
+            <button type="button" class="copy" data-copy="switch-cmd">Copy</button>
+          </div>
+          <p class="hint">The package needs Node.js 25 or later.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>MIT license. <a href="https://github.com/mark1russell7/ts-base">github.com/mark1russell7/ts-base</a> · <span id="build"></span></p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -8,3 +8,6 @@ dist/
 .env
 .env.*
 !.env.example
+
+# The site makes this record of the real CLI and tsc at each build and test.
+site/src/tsc-table.json
