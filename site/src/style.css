@@ -473,6 +473,57 @@ th {
   overflow-wrap: anywhere;
 }
 
+/* On a phone three columns break each name. A row stacks the option and its value, with the file beside them. */
+@media (max-width: 34rem) {
+  .merged-table,
+  .merged-table tbody {
+    display: block;
+  }
+
+  .merged-table thead {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--surface);
+  }
+
+  .merged-table tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, max-content);
+    gap: 0.15rem 0.6rem;
+    padding: 0.45rem 0.6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .merged-table th,
+  .merged-table td {
+    position: static;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  .merged-table tr > :nth-child(1) {
+    grid-area: 1 / 1;
+  }
+
+  .merged-table tr > :nth-child(2) {
+    grid-area: 2 / 1;
+  }
+
+  .merged-table tr > :nth-child(3) {
+    grid-area: 1 / 2 / span 2;
+    max-width: 8.5rem;
+    text-align: right;
+  }
+
+  .merged-table .src {
+    overflow-wrap: normal;
+    white-space: nowrap;
+  }
+}
+
 /* The flags */
 .flag-actions {
   display: flex;
