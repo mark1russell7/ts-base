@@ -190,7 +190,7 @@ importers:
     dependencies:
       '@mark1russell7/site-pages':
         specifier: ^0.3.4
-        version: 0.3.4
+        version: 0.3.5
       '@mark1russell7/ts-base':
         specifier: workspace:*
         version: link:..
@@ -238,8 +238,8 @@ packages:
     resolution: {integrity: sha512-u0uA18ulOXO3f6bJXCulK3J3dTp+7+ruTtAhnrKLfhQmj/czSv5aM27BNA0q1vpVK7uFY2KDIarJhYBTSqVXIQ==}
     engines: {node: '>=22'}
 
-  '@mark1russell7/site-pages@0.3.4':
-    resolution: {integrity: sha512-xxYaeElE6/HvADgO+2yu00c7svWw0ICQ99iD/2rYQVTLEvRqn40MDzi0gnCk37/LakH443xwYVvRw/YeZhj4PQ==}
+  '@mark1russell7/site-pages@0.3.5':
+    resolution: {integrity: sha512-3/VryGHcANgpTwAdAeyWL08I2qpfyUoXCVBUYtzjRQDpGT4i/wCUgJpAziiJrhY5g8HDOOsKgP/9Nf+kGh0a7Q==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -660,7 +660,7 @@ snapshots:
     dependencies:
       '@mark1russell7/rigor-generators': 0.1.5
 
-  '@mark1russell7/site-pages@0.3.4':
+  '@mark1russell7/site-pages@0.3.5':
     dependencies:
       '@mark1russell7/rigor-statistics': 0.1.10
 
