@@ -26,7 +26,7 @@
   "scripts": {
     "build": "tsc -b",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json && pnpm --filter @ts-base/site run typecheck",
-    "test": "pnpm --filter @ts-base/site run test",
+    "test": "node --test test/*.test.ts && pnpm --filter @ts-base/site run test",
     "clean": "rm -rf dist .tsbuildinfo",
     "prepare": "npm run build",
     "check:conventions": "conventions check",

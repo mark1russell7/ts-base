@@ -3,7 +3,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
-    "rootDir": "${configDir}"
+    "rootDir": "${configDir}",
+    "allowImportingTsExtensions": true
   },
   "include": ["${configDir}/src/**/*", "${configDir}/test/**/*"],
   "exclude": ["${configDir}/node_modules", "${configDir}/dist"]

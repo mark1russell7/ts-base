@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve, basename } from 'node:path';
 import { createPackageTemplate, createTsconfigTemplate, tsconfigConfigs, type ConfigType } from './templates.js';
 import { merge } from './merge.js';
+import { ConfigReadError, parsePackageText, parseTsconfigText } from './read-config.js';
 import { PackageJsonSchema, validate, getErrors, type PackageJson, type Tsconfig } from './schema.js';
 
 const args = process.argv.slice(2);
@@ -107,10 +108,11 @@ function init(args: string[]): void {
   let isNewPkg = false;
 
   if (existsSync(pkgPath)) {
+    // A file that does not parse stops the command. Only --overwrite starts again from the template.
     try {
-      existingPkg = JSON.parse(readFileSync(pkgPath, 'utf-8')) as Partial<PackageJson>;
-    } catch {
-      // Start fresh if parse fails
+      existingPkg = parsePackageText(readFileSync(pkgPath, 'utf-8'), pkgPath) as Partial<PackageJson>;
+    } catch (error) {
+      if (!options.overwrite) stopOn(error);
     }
   } else {
     isNewPkg = true;
@@ -134,9 +136,9 @@ function init(args: string[]): void {
 
   if (!options.overwrite && existsSync(tsconfigPath)) {
     try {
-      existingTsconfig = JSON.parse(readFileSync(tsconfigPath, 'utf-8')) as Partial<Tsconfig>;
-    } catch {
-      // Start fresh if parse fails
+      existingTsconfig = parseTsconfigText(readFileSync(tsconfigPath, 'utf-8'), tsconfigPath) as Partial<Tsconfig>;
+    } catch (error) {
+      stopOn(error);
     }
   }
 
@@ -206,9 +208,9 @@ function setTsconfig(args: string[]): void {
 
   if (existsSync(tsconfigPath)) {
     try {
-      existingTsconfig = JSON.parse(readFileSync(tsconfigPath, 'utf-8')) as Partial<Tsconfig>;
-    } catch {
-      // Start fresh if parse fails
+      existingTsconfig = parseTsconfigText(readFileSync(tsconfigPath, 'utf-8'), tsconfigPath) as Partial<Tsconfig>;
+    } catch (error) {
+      stopOn(error);
     }
   }
 
@@ -219,4 +221,12 @@ function setTsconfig(args: string[]): void {
 
   writeFileSync(tsconfigPath, JSON.stringify(merged, null, 2) + '\n');
   console.log(`✓ tsconfig.json -> extends ${tsconfigConfigs[config]}`);
+}
+
+/** This function stops the command on a config file that it cannot read, so it does not write over the file. */
+function stopOn(error: unknown): never {
+  if (!(error instanceof ConfigReadError)) throw error;
+  console.error(`Error: ${error.message}`);
+  console.error('The file did not change. Correct it, or start again from the template with --overwrite (init only).');
+  process.exit(1);
 }
