@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "@mark1russell7/ts-base",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "TypeScript project configuration with hyper-strict tsconfig composition",
   "license": "MIT",
   "author": "Mark Russell <marktheprogrammer17@gmail.com>",
@@ -26,7 +26,7 @@
   "scripts": {
     "build": "tsc -b",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json && pnpm --filter @ts-base/site run typecheck",
-    "test": "pnpm --filter @ts-base/site run test",
+    "test": "node --test test/*.test.ts && pnpm --filter @ts-base/site run test",
     "clean": "rm -rf dist .tsbuildinfo",
     "prepare": "npm run build",
     "check:conventions": "conventions check",
