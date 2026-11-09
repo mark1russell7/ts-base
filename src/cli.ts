@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve, basename } from 'node:path';
-import { createPackageTemplate, createTsconfigTemplate, tsconfigConfigs, type ConfigType } from './templates.js';
+import { createPackageTemplate, tsconfigConfigs, type ConfigType } from './templates.js';
+import { configNames, configOf, tsconfigFor } from './config-choice.js';
 import { merge } from './merge.js';
 import { ConfigReadError, parsePackageText, parseTsconfigText } from './read-config.js';
 import { PackageJsonSchema, validate, getErrors, type PackageJson, type Tsconfig } from './schema.js';
@@ -67,22 +68,20 @@ What 'init' does:
 
 interface InitOptions {
   name: string | null;
-  config: ConfigType;
+  /** The name after --config as typed, or null when there is none. */
+  config: string | null;
   overwrite: boolean;
 }
 
 function parseInitArgs(args: string[]): InitOptions {
   let name: string | null = null;
-  let config: ConfigType = 'esm';
+  let config: string | null = null;
   let overwrite = false;
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     if (arg === '--config' || arg === '-c') {
-      const nextArg = args[++i];
-      if (nextArg && nextArg in tsconfigConfigs) {
-        config = nextArg as ConfigType;
-      }
+      config = args[++i] ?? '';
     } else if (arg === '--overwrite') {
       overwrite = true;
     } else if (!arg?.startsWith('-') && !name) {
@@ -95,12 +94,10 @@ function parseInitArgs(args: string[]): InitOptions {
 
 function init(args: string[]): void {
   const cwd = process.cwd();
-  const options = parseInitArgs(args);
-
-  if (!(options.config in tsconfigConfigs)) {
-    console.error(`Error: Unknown config "${options.config}". Use: esm, cjs, or frontend`);
-    process.exit(1);
-  }
+  const parsed = parseInitArgs(args);
+  const config = parsed.config === null ? 'esm' : configOf(parsed.config);
+  if (config === null) unknownConfig(parsed.config ?? '');
+  const options = { ...parsed, config };
 
   // Read existing package.json to get name if not provided
   const pkgPath = resolve(cwd, 'package.json');
@@ -142,8 +139,7 @@ function init(args: string[]): void {
     }
   }
 
-  const tsconfigTemplate = createTsconfigTemplate(options.config);
-  const mergedTsconfig = merge(existingTsconfig, tsconfigTemplate, { overwrite: options.overwrite });
+  const mergedTsconfig = tsconfigFor(existingTsconfig, options.config, options.overwrite);
 
   writeFileSync(tsconfigPath, JSON.stringify(mergedTsconfig, null, 2) + '\n');
   console.log(`✓ tsconfig.json -> extends ${tsconfigConfigs[options.config]}`);
@@ -197,12 +193,8 @@ function setTsconfig(args: string[]): void {
     process.exit(1);
   }
 
-  if (!(configArg in tsconfigConfigs)) {
-    console.error(`Error: Unknown config "${configArg}". Use: esm, cjs, or frontend`);
-    process.exit(1);
-  }
-
-  const config = configArg as ConfigType;
+  const config: ConfigType | null = configOf(configArg);
+  if (config === null) unknownConfig(configArg);
   const tsconfigPath = resolve(cwd, 'tsconfig.json');
   let existingTsconfig: Partial<Tsconfig> = {};
 
@@ -214,10 +206,7 @@ function setTsconfig(args: string[]): void {
     }
   }
 
-  const template = createTsconfigTemplate(config);
-  const merged = merge(existingTsconfig, template, { overwrite: false });
-  // Always update extends
-  merged.extends = tsconfigConfigs[config];
+  const merged = tsconfigFor(existingTsconfig, config, false);
 
   writeFileSync(tsconfigPath, JSON.stringify(merged, null, 2) + '\n');
   console.log(`✓ tsconfig.json -> extends ${tsconfigConfigs[config]}`);
@@ -228,5 +217,11 @@ function stopOn(error: unknown): never {
   if (!(error instanceof ConfigReadError)) throw error;
   console.error(`Error: ${error.message}`);
   console.error('The file did not change. Correct it, or start again from the template with --overwrite (init only).');
+  process.exit(1);
+}
+
+/** This function stops the command on a name that is not a config, so the command does not write a default config. */
+function unknownConfig(name: string): never {
+  console.error(`Error: Unknown config "${name}". Use one of: ${configNames.join(', ')}`);
   process.exit(1);
 }
