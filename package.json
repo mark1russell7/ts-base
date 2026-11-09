@@ -37,7 +37,8 @@
   "devDependencies": {
     "@mark1russell7/api-report": "^0.5.0",
     "@mark1russell7/conventions": "^0.38.1",
-    "@types/node": "^25.0.2"
+    "@types/node": "^25.0.2",
+    "@vitest/coverage-v8": "^5.0.3"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.34.0",
