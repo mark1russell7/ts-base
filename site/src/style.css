@@ -878,7 +878,8 @@ textarea {
   margin: 0;
 }
 
-pre {
+pre.scroll-cue,
+.sample-scroll.scroll-cue {
   --scroll-cue-bg: var(--sunken);
 }
 
