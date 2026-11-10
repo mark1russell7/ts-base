@@ -178,10 +178,10 @@ importers:
     devDependencies:
       '@mark1russell7/api-report':
         specifier: ^0.5.0
-        version: 0.5.0
+        version: 0.5.3
       '@mark1russell7/conventions':
-        specifier: ^0.38.1
-        version: 0.38.5
+        specifier: ^0.40.6
+        version: 0.40.6
       '@types/node':
         specifier: ^25.0.2
         version: 25.9.9
@@ -193,7 +193,7 @@ importers:
     dependencies:
       '@mark1russell7/site-pages':
         specifier: ^0.4.1
-        version: 0.4.4
+        version: 0.4.6
       '@mark1russell7/ts-base':
         specifier: workspace:*
         version: link:..
@@ -244,13 +244,13 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@mark1russell7/api-report@0.5.0':
-    resolution: {integrity: sha512-1mbJ614xQr+qQ5uLWOubNP1n9CEY/ytfwC2p9eLt5PIH+xWt2yAKBWm2kuIm5A2xiBldZAJ7QEuyoa4+jJLKpQ==}
+  '@mark1russell7/api-report@0.5.3':
+    resolution: {integrity: sha512-tdg5rrwp1xTd19dEtfhZ3ZxDSx07AnUWFZuNpMr9zFnUjAx5AYL238L6EFfo6HnevfKlxzQWGOmvpkFB1v80sw==}
     engines: {node: '>=22'}
     hasBin: true
 
-  '@mark1russell7/conventions@0.38.5':
-    resolution: {integrity: sha512-nzPyMDJPvcL886YOj9S7nUg0/uorOpAl45zIaZA88K020nipvzf2mao2bZrhXRsyTluXlnxog/I1aj+UFeI//Q==}
+  '@mark1russell7/conventions@0.40.6':
+    resolution: {integrity: sha512-QKW7+0RketlRTVFAbPEK3TEJSj6v3JJmWuTaFV+fxI/83wdbVBedr1jNsdjplmaXWx1aEypUytsqIP7hihZDsA==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -262,8 +262,8 @@ packages:
     resolution: {integrity: sha512-u0uA18ulOXO3f6bJXCulK3J3dTp+7+ruTtAhnrKLfhQmj/czSv5aM27BNA0q1vpVK7uFY2KDIarJhYBTSqVXIQ==}
     engines: {node: '>=22'}
 
-  '@mark1russell7/site-pages@0.4.4':
-    resolution: {integrity: sha512-d6R1dLYAN7CA+Bnww3gZju5sO/2B3s+EuE+UupO5Fx6iKCo4w+oAenNX13yeBy/jLdxxD++m/zrcx+MxcbZ1ig==}
+  '@mark1russell7/site-pages@0.4.6':
+    resolution: {integrity: sha512-h/vcASVZcbf3UhDBHlalot0PvAzt8tUpLC6ngZgZoZJSw9Aj3Pcm6lw5irKmP1o42aFI8SnhJvxSuC9PUWZPAg==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -717,11 +717,11 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@mark1russell7/api-report@0.5.0':
+  '@mark1russell7/api-report@0.5.3':
     dependencies:
-      '@mark1russell7/conventions': 0.38.5
+      '@mark1russell7/conventions': 0.40.6
 
-  '@mark1russell7/conventions@0.38.5':
+  '@mark1russell7/conventions@0.40.6':
     dependencies:
       yaml: 2.9.1
 
@@ -731,7 +731,7 @@ snapshots:
     dependencies:
       '@mark1russell7/rigor-generators': 0.1.5
 
-  '@mark1russell7/site-pages@0.4.4':
+  '@mark1russell7/site-pages@0.4.6':
     dependencies:
       '@mark1russell7/rigor-statistics': 0.1.10
 
