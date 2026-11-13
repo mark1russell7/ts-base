@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "@mark1russell7/ts-base",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "TypeScript project configuration with hyper-strict tsconfig composition",
   "license": "MIT",
   "author": "Mark Russell <marktheprogrammer17@gmail.com>",
@@ -15,7 +15,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./tsconfig/*.json": "./tsconfig/*.json"
   },
