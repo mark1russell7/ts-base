@@ -21,12 +21,12 @@ concurrency:
 
 jobs:
   ci:
-    uses: mark1russell7/template/.github/workflows/reusable-ci.yml@2030c7dec9485afebb504772f79f41f23bdb2df7 # main
+    uses: mark1russell7/template/.github/workflows/reusable-ci.yml@e29ffc12fba84fe75b1516ce25f8f8908243e723 # main
 
   # The site of .github/site.json: the build, the site check and the probe, with no deploy (CI.md of the
   # template, "The site config"). The Pages workflow deploys the same site from main.
   site:
-    uses: mark1russell7/template/.github/workflows/reusable-pages-check.yml@2030c7dec9485afebb504772f79f41f23bdb2df7 # main
+    uses: mark1russell7/template/.github/workflows/reusable-pages-check.yml@e29ffc12fba84fe75b1516ce25f8f8908243e723 # main
     permissions:
       contents: read
 
@@ -40,6 +40,6 @@ jobs:
     timeout-minutes: 2
     permissions: {}
     steps:
-      - uses: mark1russell7/template/.github/actions/gate-summary@2030c7dec9485afebb504772f79f41f23bdb2df7 # main
+      - uses: mark1russell7/template/.github/actions/gate-summary@e29ffc12fba84fe75b1516ce25f8f8908243e723 # main
         with:
           needs: ${{ toJSON(needs) }}
