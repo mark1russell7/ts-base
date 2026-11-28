@@ -44,7 +44,7 @@
   "dependencies": {
     "@sinclair/typebox": "^0.34.0",
     "deepmerge-ts": "^8.0.2",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.0"
   },
   "keywords": [
     "typescript",
